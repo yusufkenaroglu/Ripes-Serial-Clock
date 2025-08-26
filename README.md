@@ -1,3 +1,2 @@
-#v1.0
-#features:
-        pass
+#V1.1
+#improvements: Support for UTC Time Zone Adjustments

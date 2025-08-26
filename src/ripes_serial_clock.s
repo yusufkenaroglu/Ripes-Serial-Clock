@@ -1,14 +1,17 @@
-#V1.0
+#V1.1
+#improvements: Support for UTC Time Zone Adjustments
 .data:
     day_to_ms: .word 86400000
     hour_to_ms: .word 3600000
     minute_to_ms: .word 60000
     second_to_ms: .word 1000
-    
-    
+    UTC_hour_offset: .byte 6
+.align 4
+
 .text:
     main:
-        li a0, LED_MATRIX_0_BASE
+        la s5, UTC_hour_offset
+        lb s5, 0(s5)
         li t4, 24
         
         li a7, 30
@@ -26,12 +29,14 @@
         
         remu t5, a0, t1
         remu s0, a0, t0
+        #add UTC_offset to s1 here
+        add s1, s1, s5
         remu s2, s1, t4
         divu s4, s0, a6
         divu s3, t5, t0
         mv a0, s2
         mv a1, s3
-        mv a2, s4
+        mv a2, s4 
         call print_time
         j loop
         
